@@ -1,0 +1,16 @@
+<div class="homepage-container">
+  <img class="pdla-logo" src="assets/pdla-logo.svg" />
+  <div class="champ main-menu-label">Quelle est votre équipe ?</div>
+  <div class="equipes-container">
+    @for (equipe of equipes(); track equipe.nomEquipe) {
+      <div
+        class="champ"
+        [ngClass]="{
+          connected: equipe.connected,
+        }"
+      >
+        {{ equipe.nomEquipe }}
+      </div>
+    }
+  </div>
+</div>
