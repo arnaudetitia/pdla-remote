@@ -1,0 +1,42 @@
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: blue;
+
+  font-family: 'Bahnschrift';
+
+  .pdla-logo {
+    width: 90vw;
+    max-height: 50vh;
+  }
+
+  .main-menu-label {
+    width: 90vw;
+  }
+
+  .equipes-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    margin-top: 5vh;
+    width: 95vw;
+
+    .champ {
+      min-width: 40vw;
+      cursor: pointer;
+
+      &.connected {
+        opacity: 0.3;
+        cursor: unset;
+      }
+    }
+  }
+}
