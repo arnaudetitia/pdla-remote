@@ -8,6 +8,7 @@
         [ngClass]="{
           connected: equipe.connected,
         }"
+        (click)="goToRemote(equipe)"
       >
         {{ equipe.nomEquipe }}
       </div>
