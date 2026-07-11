@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { MargeFormControlComponent } from './marge-form-control/marge-form-control.component';
 import { Marge } from '../../model/marge.model';
+import { debounceTime, tap } from 'rxjs';
+import { ReponsesService } from '../../services/reponses.service';
 
 @Component({
   selector: 'app-remote-page.component',
@@ -19,11 +21,31 @@ export class RemotePageComponent {
 
   reponseSent = signal<boolean>(false);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private reponseService: ReponsesService,
+  ) {
     this.reponseForm = this.formBuilder.group({
       marge: [null, [Validators.required]],
       annee: [this.MIN_YEAR, [Validators.required]],
     });
+    this.reponseForm
+      .get('annee')
+      ?.valueChanges.pipe(
+        debounceTime(500),
+        tap(() => {
+          this.sendReponse();
+        }),
+      )
+      .subscribe();
+    this.reponseForm
+      .get('marge')
+      ?.valueChanges.pipe(
+        tap(() => {
+          this.sendReponse();
+        }),
+      )
+      .subscribe();
   }
 
   modifierAnnee(increment: number) {
@@ -35,7 +57,14 @@ export class RemotePageComponent {
     this.reponseForm.patchValue({ marge: marge });
   }
 
+  sendReponse() {
+    const marge = this.reponseForm.get('marge')?.value;
+    const annee = this.reponseForm.get('annee')?.value;
+    this.reponseService.sendReponse(annee, marge).subscribe();
+  }
+
   confirmerReponse() {
     this.reponseSent.set(true);
+    this.reponseService.confirmReponse().subscribe();
   }
 }
