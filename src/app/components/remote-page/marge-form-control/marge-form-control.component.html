@@ -1,0 +1,13 @@
+<div class="marge-form-container">
+  @for (marge of margesList; track marge.anneesMarge) {
+    <div
+      class="marge-choice"
+      (click)="writeValue(marge)"
+      [ngClass]="{
+        'not-chosen': value() && value() !== marge,
+      }"
+    >
+      <span>{{ marge.points }}</span>
+    </div>
+  }
+</div>
