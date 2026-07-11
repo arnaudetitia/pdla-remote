@@ -1,0 +1,71 @@
+.remote-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+
+  background-color: #ff1744;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 2vh;
+
+  font-family: 'Bahnschrift';
+
+  .annee-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+
+    .annee-slider-wrapper {
+      width: 90vw;
+      background-color: yellow;
+      border: 2vh solid orange;
+      border-radius: 1vh;
+      mat-slider {
+        display: block;
+
+        width: 95%;
+        margin-left: 2.5%;
+      }
+    }
+
+    .annee-buttons-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-top: 3vh;
+      margin-bottom: 3vh;
+
+      width: 90vw;
+
+      .annee-display {
+        width: 30vw;
+        border: 2vh solid blue;
+        border-radius: 2vh;
+        background-color: white;
+
+        font-size: clamp(2rem, 5vw, 6rem);
+        text-align: center;
+      }
+
+      button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        &:first-of-type mat-icon {
+          margin-right: 0.5vw;
+        }
+
+        &:nth-of-type(2) mat-icon {
+          margin-left: 0.5vw;
+        }
+      }
+    }
+  }
+}
