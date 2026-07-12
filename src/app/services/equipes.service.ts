@@ -19,4 +19,8 @@ export class EquipesService {
       equipe: JSON.stringify(nomEquipe),
     });
   }
+
+  getEquipeEnJeu(): Observable<string> {
+    return this.http.get<string>(environment.apiUrl + '/equipes/en-jeu');
+  }
 }

@@ -1,36 +1,40 @@
 <div class="remote-page-container">
-  <form [formGroup]="reponseForm">
-    <marge-form-control (onMargeChanged)="sendMarge($event)"></marge-form-control>
-    <div class="annee-form-container">
-      <div class="annee-slider-wrapper">
-        <mat-slider [min]="MIN_YEAR" [max]="MAX_YEAR" [disabled]="reponseSent()"
-          ><input matSliderThumb formControlName="annee"
-        /></mat-slider>
-      </div>
-      <div class="annee-buttons-wrapper">
+  @if (equipeCourranteEnJeu()) {
+    <form [formGroup]="reponseForm">
+      <marge-form-control (onMargeChanged)="sendMarge($event)"></marge-form-control>
+      <div class="annee-form-container">
+        <div class="annee-slider-wrapper">
+          <mat-slider [min]="MIN_YEAR" [max]="MAX_YEAR" [disabled]="reponseSent()"
+            ><input matSliderThumb formControlName="annee"
+          /></mat-slider>
+        </div>
+        <div class="annee-buttons-wrapper">
+          <button
+            class="btn btn-primary"
+            (click)="modifierAnnee(-1)"
+            [disabled]="reponseForm.get('annee')?.value === MIN_YEAR || reponseSent()"
+          >
+            <mat-icon>fast_rewind</mat-icon>Retirer une année
+          </button>
+          <div class="annee-display">{{ reponseForm.get('annee')?.value }}</div>
+          <button
+            class="btn btn-primary"
+            (click)="modifierAnnee(1)"
+            [disabled]="reponseForm.get('annee')?.value === MAX_YEAR || reponseSent()"
+          >
+            Ajouter une année<mat-icon>fast_forward</mat-icon>
+          </button>
+        </div>
         <button
-          class="btn btn-primary"
-          (click)="modifierAnnee(-1)"
-          [disabled]="reponseForm.get('annee')?.value === MIN_YEAR || reponseSent()"
+          class="btn btn-success"
+          (click)="confirmerReponse()"
+          [disabled]="reponseForm.invalid || reponseSent()"
         >
-          <mat-icon>fast_rewind</mat-icon>Retirer une année
-        </button>
-        <div class="annee-display">{{ reponseForm.get('annee')?.value }}</div>
-        <button
-          class="btn btn-primary"
-          (click)="modifierAnnee(1)"
-          [disabled]="reponseForm.get('annee')?.value === MAX_YEAR || reponseSent()"
-        >
-          Ajouter une année<mat-icon>fast_forward</mat-icon>
+          Confirmer réponse
         </button>
       </div>
-      <button
-        class="btn btn-success"
-        (click)="confirmerReponse()"
-        [disabled]="reponseForm.invalid || reponseSent()"
-      >
-        Confirmer réponse
-      </button>
-    </div>
-  </form>
+    </form>
+  } @else {
+    <div style="color: white">L'équipe adverse est en train de jouer</div>
+  }
 </div>
