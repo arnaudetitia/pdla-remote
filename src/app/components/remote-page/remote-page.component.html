@@ -1,7 +1,10 @@
 <div class="remote-page-container">
   @if (equipeCourranteEnJeu()) {
     <form [formGroup]="reponseForm">
-      <marge-form-control (onMargeChanged)="sendMarge($event)"></marge-form-control>
+      <marge-form-control
+        [reponseSent]="reponseSent()"
+        (onMargeChanged)="sendMarge($event)"
+      ></marge-form-control>
       <div class="annee-form-container">
         <div class="annee-slider-wrapper">
           <mat-slider [min]="MIN_YEAR" [max]="MAX_YEAR" [disabled]="reponseSent()"
@@ -30,7 +33,7 @@
           (click)="confirmerReponse()"
           [disabled]="reponseForm.invalid || reponseSent()"
         >
-          Confirmer réponse
+          {{ reponseSent() ? 'Réponse envoyée' : 'Envoyer réponse' }}
         </button>
       </div>
     </form>

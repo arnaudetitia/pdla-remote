@@ -2,7 +2,7 @@
   @for (marge of margesList; track marge.anneesMarge) {
     <div
       class="marge-choice"
-      (click)="writeValue(marge)"
+      (click)="selectMarge(marge)"
       [ngClass]="{
         'not-chosen': value() && value() !== marge,
       }"
