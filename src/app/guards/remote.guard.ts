@@ -2,12 +2,26 @@ import { CanActivateFn, Router } from '@angular/router';
 import { EquipeStorageKeys } from '../model/enums/equipe-storage-keys.enum';
 import moment from 'moment';
 import { inject } from '@angular/core';
+import { EquipesService } from '../services/equipes.service';
+import { map, tap } from 'rxjs';
 
 export const remoteGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
+  const equipeService = inject(EquipesService);
 
-  if (localStorage.getItem(EquipeStorageKeys.CURRENT_EQUIPE) && !isExpired()) {
-    return true;
+  const equipeConnected = localStorage.getItem(EquipeStorageKeys.CURRENT_EQUIPE);
+  if (equipeConnected && !isExpired()) {
+    return equipeService.getEquipes().pipe(
+      map((equipes) => equipes.map((equipe) => equipe.nomEquipe)),
+      map((nomsEquipes) => {
+        if (nomsEquipes.includes(equipeConnected)) {
+          return true;
+        } else {
+          localStorage.clear();
+          return router.parseUrl('/');
+        }
+      }),
+    );
   }
   return router.parseUrl('/');
 };
