@@ -1,0 +1,15 @@
+<div class="marge-form-container">
+  @for (marge of margesList; track marge.anneesMarge) {
+    <div
+      class="marge-choice"
+      (click)="selectMarge(marge)"
+      [ngClass]="{
+        'votes-closed': !votesOpen,
+        chosen: value() && value() === marge,
+        'not-chosen': reponseSent && value() && value() !== marge,
+      }"
+    >
+      <span>{{ marge.points }}</span>
+    </div>
+  }
+</div>

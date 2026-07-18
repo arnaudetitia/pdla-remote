@@ -1,0 +1,44 @@
+.marge-form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin-bottom: 2vh;
+
+  .marge-choice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: yellow;
+    border: 1vh solid orange;
+
+    text-align: center;
+
+    @media (orientation: portrait) {
+      width: 10vh;
+      height: 10vh;
+      border-radius: 10vh;
+
+      font-size: 5vh;
+    }
+
+    @media (orientation: landscape) {
+      width: 10vw;
+      height: 10vw;
+      border-radius: 10vw;
+
+      font-size: 5vw;
+    }
+
+    &.votes-closed,
+    &.not-chosen {
+      opacity: 0.5;
+    }
+
+    &.chosen {
+      border-color: blue;
+    }
+  }
+}
