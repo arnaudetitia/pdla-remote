@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4190",
+    "start:dev": "ng serve --port 4190",
+    "start:game": "ng serve --configuration production --port 4190",
     "build": "ng build",
+    "build:remote": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
