@@ -23,6 +23,10 @@ export class SocketService {
       this.equipesStore.setEquipeEnJeu(data.equipeEnJeu);
     });
 
+    this.socket.on('toggle-votes', (data) => {
+      this.partieStore.toggleVotes(data.statusVotes);
+    });
+
     this.socket.on('partie-termine', () => {
       this.partieStore.makePartieTermine();
     });

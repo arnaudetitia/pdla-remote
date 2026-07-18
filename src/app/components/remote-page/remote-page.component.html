@@ -3,12 +3,13 @@
     @if (equipeCourranteEnJeu()) {
       <form [formGroup]="reponseForm">
         <marge-form-control
+          [votesOpen]="votesOpen()"
           [reponseSent]="reponseSent()"
           (onMargeChanged)="sendMarge($event)"
         ></marge-form-control>
         <div class="annee-form-container">
           <div class="annee-slider-wrapper">
-            <mat-slider [min]="MIN_YEAR" [max]="MAX_YEAR" [disabled]="reponseSent()"
+            <mat-slider [min]="MIN_YEAR" [max]="MAX_YEAR" [disabled]="reponseSent() || !votesOpen()"
               ><input matSliderThumb formControlName="annee"
             /></mat-slider>
           </div>
@@ -16,7 +17,9 @@
             <button
               class="btn btn-primary"
               (click)="modifierAnnee(-1)"
-              [disabled]="reponseForm.get('annee')?.value === MIN_YEAR || reponseSent()"
+              [disabled]="
+                reponseForm.get('annee')?.value === MIN_YEAR || !votesOpen() || reponseSent()
+              "
             >
               <mat-icon>fast_rewind</mat-icon>Retirer une année
             </button>
@@ -24,18 +27,22 @@
             <button
               class="btn btn-primary"
               (click)="modifierAnnee(1)"
-              [disabled]="reponseForm.get('annee')?.value === MAX_YEAR || reponseSent()"
+              [disabled]="
+                reponseForm.get('annee')?.value === MAX_YEAR || !votesOpen() || reponseSent()
+              "
             >
               Ajouter une année<mat-icon>fast_forward</mat-icon>
             </button>
           </div>
-          <button
-            class="btn btn-success"
-            (click)="confirmerReponse()"
-            [disabled]="reponseForm.invalid || reponseSent()"
-          >
-            {{ reponseSent() ? 'Réponse envoyée' : 'Envoyer réponse' }}
-          </button>
+          @if (votesOpen()) {
+            <button
+              class="btn btn-success"
+              (click)="confirmerReponse()"
+              [disabled]="reponseForm.invalid || reponseSent()"
+            >
+              {{ reponseSent() ? 'Réponse envoyée' : 'Envoyer réponse' }}
+            </button>
+          }
         </div>
       </form>
     } @else {
