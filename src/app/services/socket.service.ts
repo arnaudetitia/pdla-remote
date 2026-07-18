@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { environment } from '../../environments/environment.dev';
 import { EquipesStore } from '../stores/equipes.store';
+import { PartieStore } from '../stores/partie.store';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,10 @@ import { EquipesStore } from '../stores/equipes.store';
 export class SocketService {
   private socket: Socket | undefined;
 
-  constructor(private equipesStore: EquipesStore) {
+  constructor(
+    private equipesStore: EquipesStore,
+    private partieStore: PartieStore,
+  ) {
     this.socket = io(environment.socketUrl, {
       transports: ['websocket'],
       upgrade: false,
@@ -17,6 +21,10 @@ export class SocketService {
 
     this.socket.on('nouvelle-equipe-en-jeu', (data) => {
       this.equipesStore.setEquipeEnJeu(data.equipeEnJeu);
+    });
+
+    this.socket.on('partie-termine', () => {
+      this.partieStore.makePartieTermine();
     });
   }
 }

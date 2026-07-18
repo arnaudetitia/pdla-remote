@@ -10,6 +10,7 @@ import { SocketService } from '../../services/socket.service';
 import { EquipesStore } from '../../stores/equipes.store';
 import { EquipeStorageKeys } from '../../model/enums/equipe-storage-keys.enum';
 import { EquipesService } from '../../services/equipes.service';
+import { PartieStore } from '../../stores/partie.store';
 
 @Component({
   selector: 'app-remote-page.component',
@@ -26,11 +27,14 @@ export class RemotePageComponent implements OnInit {
   reponseSent = signal<boolean>(false);
   equipeCourranteEnJeu = signal<boolean>(false);
 
+  partieTermine = signal<boolean>(false);
+
   constructor(
     private formBuilder: FormBuilder,
     private reponseService: ReponsesService,
     private equipesStore: EquipesStore,
     private equipesService: EquipesService,
+    private partieStore: PartieStore,
     private socketService: SocketService,
   ) {
     this.reponseForm = this.formBuilder.group({
@@ -73,6 +77,13 @@ export class RemotePageComponent implements OnInit {
           const equipeCourante = localStorage.getItem(EquipeStorageKeys.CURRENT_EQUIPE);
           const equipeEnJeu = newEquipe || startEquipe;
           this.equipeCourranteEnJeu.set(equipeCourante?.localeCompare(equipeEnJeu) === 0);
+        }),
+      )
+      .subscribe();
+    this.partieStore.partieTermine$
+      .pipe(
+        tap(() => {
+          this.partieTermine.set(true);
         }),
       )
       .subscribe();
