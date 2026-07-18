@@ -4,7 +4,9 @@
       class="marge-choice"
       (click)="selectMarge(marge)"
       [ngClass]="{
-        'not-chosen': value() && value() !== marge,
+        'votes-closed': !votesOpen,
+        chosen: value() && value() === marge,
+        'not-chosen': reponseSent && value() && value() !== marge,
       }"
     >
       <span>{{ marge.points }}</span>

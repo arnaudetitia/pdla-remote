@@ -32,8 +32,13 @@
       font-size: 5vw;
     }
 
+    &.votes-closed,
     &.not-chosen {
       opacity: 0.5;
+    }
+
+    &.chosen {
+      border-color: blue;
     }
   }
 }

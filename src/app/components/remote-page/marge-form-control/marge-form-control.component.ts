@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './marge-form-control.component.scss',
 })
 export class MargeFormControlComponent implements ControlValueAccessor {
+  @Input() votesOpen: boolean = false;
   @Input() reponseSent: boolean = false;
 
   @Output() onMargeChanged = new EventEmitter<Marge | null>();

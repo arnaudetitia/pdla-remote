@@ -27,6 +27,7 @@ export class RemotePageComponent implements OnInit {
   reponseSent = signal<boolean>(false);
   equipeCourranteEnJeu = signal<boolean>(false);
 
+  votesOpen = signal<boolean>(false);
   partieTermine = signal<boolean>(false);
 
   constructor(
@@ -77,6 +78,13 @@ export class RemotePageComponent implements OnInit {
           const equipeCourante = localStorage.getItem(EquipeStorageKeys.CURRENT_EQUIPE);
           const equipeEnJeu = newEquipe || startEquipe;
           this.equipeCourranteEnJeu.set(equipeCourante?.localeCompare(equipeEnJeu) === 0);
+        }),
+      )
+      .subscribe();
+    this.partieStore.votesOpen$
+      .pipe(
+        tap((voteStatus) => {
+          this.votesOpen.set(voteStatus);
         }),
       )
       .subscribe();
