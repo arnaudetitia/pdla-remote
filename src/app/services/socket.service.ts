@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { environment } from '../../environments/environment.dev';
+import { environment } from '../../environments/environment';
 import { EquipesStore } from '../stores/equipes.store';
 import { PartieStore } from '../stores/partie.store';
 
