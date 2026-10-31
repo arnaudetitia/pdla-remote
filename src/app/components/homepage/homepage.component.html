@@ -1,6 +1,8 @@
 <div class="homepage-container">
   <img class="pdla-logo" src="assets/pdla-logo.svg" />
-  <div class="champ main-menu-label">Quelle est votre équipe ?</div>
+  <div class="champ main-menu-label">
+    {{ equipes().length > 0 ? 'Quelle est votre équipe ?' : "La partie n'a pas encore commencé" }}
+  </div>
   <div class="equipes-container">
     @for (equipe of equipes(); track equipe.nomEquipe) {
       <div
